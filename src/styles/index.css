@@ -95,54 +95,73 @@ img {
 
 @import "partials/_about-section.css";
 
-.section.improve-skills {
-  .col.img {
-    &>img {
-      width: 100%;
-    }
+@import "partials/_improve-section.css";
+
+@import "partials/_quote-section.css";
+
+.section.chiefs {
+  display: block;
+}
+
+.top-chiefs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 1.5em;
+  margin-top: 3em;
+}
+
+.chief-card {
+  display: flex;
+  height: 120px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  overflow: hidden;
+
+  &>img {
+    height: 100%;
+    width: 120px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px var(--shadow-color);
   }
 
-  .col.typography {
+  .chief-card-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: .5em;
     padding-left: 1em;
 
-    .skill-item {
-      border-left: .2em solid var(--primary-color);
-      margin-bottom: .5em;
-      padding: .1em 0 .2em .5em;
-      color: var(--text-light);
+    .chief-card-name {
+      font-size: 1.5em;
       font-weight: bold;
-
-      transform: translateX(100%);
-      opacity: 0;
-      animation: calc(var(--animation-speed)*.3s) slideInRight forwards;
-
-      &:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-
-      &:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-
-      &:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-
-      &:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-
-      &:nth-child(7) {
-        animation-delay: 0.7s;
-      }
+      color: var(--text-color);
     }
 
-    .btn {
-      margin-top: .75em;
+    .chief-recipe-count,
+    .chief-cuisine {
+      font-size: 1.2em;
+      color: var(--text-light);
+    }
+
+    .chief-icons {
+      font-size: 1.2em;
+
+      &>svg {
+        margin-right: .5em;
+
+        &:nth-child(1) {
+          color: #0063f7;
+        }
+
+        &:nth-child(2) {
+          color: #13b4ff;
+        }
+
+        &:nth-child(3) {
+          color: #ff0056;
+        }
+      }
     }
   }
 }
@@ -166,5 +185,9 @@ img {
     .sidebar-btn {
       display: block;
     }
+  }
+
+  .chief-card {
+    box-shadow: 0 5px 10px var(--shadow-color);
   }
 }
