@@ -1,9 +1,11 @@
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from './Sidebar';
 import { faHome, faList, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
     const [showSideBar, setShowSideBar] = useState(false);
+    const location = useLocation();
     
     const links = [
         {
@@ -35,7 +37,7 @@ export default function Navbar() {
                 <div className="nav-links">
                     {
                         links.map((link)=>{
-                            return <a href="#!" key={link.name}>{link.name}</a>;
+                            return <Link className={location.pathname === link.path?'active':''} to={link.path} key={link.name}>{link.name}</Link>;
                         })
                     }
                     {/* <a href="#">Home</a>
