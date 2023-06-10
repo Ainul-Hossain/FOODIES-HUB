@@ -23,6 +23,7 @@ body {
   font-size: var(--font-size);
   font-family: 'Roboto', sans-serif;
   padding-top: 55px;
+  background-color: var(--background-light);
 }
 
 a {
@@ -74,6 +75,10 @@ img {
   margin-bottom: 3vw;
   flex-wrap: wrap;
 
+  &.d-block {
+    display: block;
+  }
+
   .title {
     color: var(--text-color);
     font-size: 2.5em;
@@ -103,27 +108,66 @@ img {
 
 @import "partials/_chiefs-section.css";
 
-.footer {
-  background-color: #0f0f0f;
-  color: #fff;
-  padding-block: 3em;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-column-gap: 1em;
+@import "partials/_footer.css";
 
-  .footer-section {
-    &>p {
-      opacity: .9;
-      margin-bottom: .5em;
+@import "partials/_previous-searches.css";
+
+@import "partials/_recipes-section.css";
+
+.options-container {
+  box-shadow: 0 5px 10px var(--shadow-color);
+  padding: 1em;
+  border-radius: 5px;
+  border-left: .5em solid var(--primary-color);
+  background-color: var(--background-light);
+  margin-top: 1em;
+  display: flex;
+  gap: 1em;
+
+  .option {
+    height: 3.5em;
+    width: 3.5em;
+    box-shadow: 0 3px 6px var(--shadow-color);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.light {
+      background-color: #fff;
     }
 
-    &>p.title {
-      font-size: 1.1em;
-      opacity: 1;
-      font-weight: bold;
-      margin-bottom: 1em;
+    &.dark {
+      background-color: rgb(29, 29, 29);
+    }
+
+    .check {
+      height: 2.5em;
+      width: 2.5em;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px var(--shadow-color);
+
+      &>svg {
+        height: 1.75em;
+        width: 1.75em;
+      }
+
     }
   }
+
+  .btn span {
+    margin-left: .5em;
+    display: inline-block;
+  }
+}
+
+.d-block h2 {
+  font-size: 1.75em;
+  color: var(--text-color);
 }
 
 .main {
@@ -131,7 +175,7 @@ img {
 }
 
 .container {
-  padding-inline: 25vw;
+  padding-inline: 12vw;
 }
 
 @import "./partials/_animations.css";
