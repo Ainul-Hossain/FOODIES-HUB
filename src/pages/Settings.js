@@ -3,7 +3,8 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 export default function Settings(){
-    const [theme, setTheme] = useState('light');
+    let prevTheme = localStorage.getItem("Theme");
+    const [theme, setTheme] = useState(prevTheme);
 
     const primaryColors = [
         "rgb(255, 0, 86)",
@@ -13,7 +14,8 @@ export default function Settings(){
         "rgb(156, 39, 176)"
     ];
 
-    const [primaryColor, setPrimaryColor] = useState(0);
+    let prevColor = Number(localStorage.getItem('setColor'));
+    const [primaryColor, setPrimaryColor] = useState(prevColor);
 
     const fontSizes = [
         {
@@ -30,7 +32,8 @@ export default function Settings(){
         }
     ];
 
-    const [fontSize, setFontSize] = useState(1);
+    let prevFont = Number(localStorage.getItem("setFont"));
+    const [fontSize, setFontSize] = useState(prevFont);
 
     const animationSpeeds = [
         {
@@ -47,9 +50,11 @@ export default function Settings(){
         }
     ];
 
-    const [animationSpeed, setAnimationSpeed] = useState(1);
+    let prevAnimation = Number(localStorage.getItem('setAnimation'));
+    const [animationSpeed, setAnimationSpeed] = useState(prevAnimation);
 
-    const [settings, setSettings] = useState({
+    let storeSettings = JSON.parse(localStorage.getItem('storeSettings'));
+    const [settings, setSettings] = useState(storeSettings || {
         "--background-color": "#fff",
         "--background-light": "#fff",
         "--primary-color": "rgb(255, 0, 86)",
@@ -77,17 +82,19 @@ export default function Settings(){
         }
     ];
 
-    function changeTheme (i){
-        const _theme = {...themes[i]};
-        setTheme(i===0?'light':'dark');
-
-        // update settings
-        let _settings = {...settings};
-        
-        for(let i in _theme){
-            _settings[i] = _theme[i];
+    function changeTheme(i) {
+        const _theme = {
+          ...themes[i],
+        };
+        setTheme(i === 0 ? "light" : "dark");
+        localStorage.setItem("Theme", i === 0? 'light': 'dark');
+        let _settings = {
+          ...settings,
+        };
+        for (let key in _theme) {
+          _settings[key] = _theme[key];
         }
-        //console.log(_settings);
+        localStorage.setItem("storeSettings", JSON.stringify(_settings));
         setSettings(_settings);
     }
 
@@ -95,14 +102,24 @@ export default function Settings(){
         const _color = primaryColors[i];
         let _settings = {...settings};
         _settings["--primary-color"] = _color;
-        setPrimaryColor(i);
+        localStorage.setItem('setColor', i);
+        localStorage.setItem('storeSettings', JSON.stringify(_settings));
+        if(i !== prevColor){
+            setPrimaryColor(i);
+        }else{
+            setPrimaryColor(prevColor);
+        }
         setSettings(_settings);
     }
 
-    function changeFontSize(i){
+    function changeFontSize(i) {
         const _size = fontSizes[i];
-        let _settings = {...settings};
+        let _settings = {
+          ...settings,
+        };
         _settings["--font-size"] = _size.value;
+        localStorage.setItem("setFont", i);
+        localStorage.setItem("storeSettings", JSON.stringify(_settings));
         setFontSize(i);
         setSettings(_settings);
     }
@@ -111,6 +128,8 @@ export default function Settings(){
         const _animationSpeed = animationSpeeds[i];
         let _settings = {...settings};
         _settings["--animation-speed"] = _animationSpeed.value;
+        localStorage.setItem('setAnimation', i);
+        localStorage.setItem("storeSettings", JSON.stringify(_settings));
         setAnimationSpeed(i);
         setSettings(_settings);
     }
@@ -121,6 +140,8 @@ export default function Settings(){
             root.style.setProperty(key, settings[key]);
         }
     }, [settings]);
+
+    //console.log(prevTheme, prevColor, prevFont, prevAnimation);
 
     return (
         <div>
